@@ -5,7 +5,7 @@ import (
 )
 
 // 1. Quick Sort
-func quickSort(data []int, left int, right int)  {
+func quickSort(data []int, left int, right int) {
 	if left >= right {
 		return
 	}
@@ -19,7 +19,7 @@ func partition1(data []int, left, right int) int {
 	i := left
 	j := right
 	// i's job : index <= i 的元素都<= pivot
-	for ; i < j; {
+	for i < j {
 		// 找到右侧第一个大于pivot的元素
 		for i < j && data[j] > pivot {
 			j--
@@ -39,7 +39,7 @@ func partition2(data []int, left, right int) int {
 	//pivotIdx := left
 	i := left
 	j := right
-	for ; i < j; {
+	for i < j {
 		for i < j && data[j] <= pivot {
 			j--
 		}
@@ -56,25 +56,25 @@ func partition2(data []int, left, right int) int {
 }
 
 // 2. Merge Sort
-func mergeSort(data []int, left int, right int)  {
+func mergeSort(data []int, left int, right int) {
 	if left >= right {
 		return
 	}
-	mid := left + (right - left) / 2
+	mid := left + (right-left)/2
 	mergeSort(data, left, mid)
-	mergeSort(data, mid + 1, right)
+	mergeSort(data, mid+1, right)
 
 	merge(data, left, mid, right)
 
 }
 
-func merge(data []int, left, mid, right int)  {
+func merge(data []int, left, mid, right int) {
 	tmp := make([]int, right-left+1)
 
 	i := left
-	j := mid+1
+	j := mid + 1
 	k := 0
-	for ;i <= mid && j <= right; k++ {
+	for ; i <= mid && j <= right; k++ {
 		if data[i] <= data[j] {
 			tmp[k] = data[i]
 			i++
@@ -116,18 +116,18 @@ func findKthLargest(nums []int, k int) int {
 		if p+1 == k {
 			return nums[p]
 		} else if p+1 < k {
-			left = p+1
+			left = p + 1
 		} else {
-			right = p-1
+			right = p - 1
 		}
 	}
 }
 
 // 4. Insertion sort
-func insertionSort(nums []int)  {
-	for i := 1; i < len(nums); i++{
+func insertionSort(nums []int) {
+	for i := 1; i < len(nums); i++ {
 		tmp := nums[i]
-		j := i-1
+		j := i - 1
 		for ; tmp < nums[j] && j >= 0; j-- {
 			nums[j+1] = nums[j]
 		}
@@ -136,7 +136,7 @@ func insertionSort(nums []int)  {
 }
 
 // 5. counting sort 计数排序
-func countingSort(nums []int)  {
+func countingSort(nums []int) {
 	if len(nums) <= 0 {
 		return
 	}
@@ -151,7 +151,7 @@ func countingSort(nums []int)  {
 			max = num
 		}
 	}
-	countArrayLen := max-min+1
+	countArrayLen := max - min + 1
 	countArray := make([]int, countArrayLen)
 	// 统计数组
 	for i := 0; i < len(nums); i++ {
@@ -159,17 +159,16 @@ func countingSort(nums []int)  {
 	}
 	// 扫描输出
 	var index int
-	for i := 0; i < len(countArray); i++{
+	for i := 0; i < len(countArray); i++ {
 		num := i
 		count := countArray[i]
 		for count > 0 {
-			nums[index] = num+min
+			nums[index] = num + min
 			index++
 			count--
 		}
 	}
 }
-
 
 func countingSort2(nums []int) []int {
 	if len(nums) <= 0 {
@@ -186,7 +185,7 @@ func countingSort2(nums []int) []int {
 			max = num
 		}
 	}
-	countArrayLen := max-min+1
+	countArrayLen := max - min + 1
 	countArray := make([]int, countArrayLen)
 	// 统计数组
 	for i := 0; i < len(nums); i++ {
@@ -200,12 +199,11 @@ func countingSort2(nums []int) []int {
 		countArray[i] = sum
 	}
 
-
 	// 扫描输出
 	sortedArray := make([]int, len(nums))
-	for j := len(nums)-1; j >= 0 ; j--{
+	for j := len(nums) - 1; j >= 0; j-- {
 		num := nums[j]
-		countIndex := nums[j]-min
+		countIndex := nums[j] - min
 		index := countArray[countIndex]
 		sortedArray[index-1] = num
 		countArray[countIndex]--
@@ -213,10 +211,9 @@ func countingSort2(nums []int) []int {
 	return sortedArray
 }
 
-
 // 6. bucket sort
 // [0, 99]
-func bucketSort(nums []int)  {
+func bucketSort(nums []int) {
 	// 10个桶, 每个桶是一个链
 	var min = nums[0]
 	var max = nums[0]
@@ -233,13 +230,13 @@ func bucketSort(nums []int)  {
 
 	bucket := make([][]int, bucketNum)
 
-	for i := 0; i < len(nums); i++{
+	for i := 0; i < len(nums); i++ {
 		num := nums[i]
-		bucketIdx := (num-min)*(bucketNum-1) / d
+		bucketIdx := (num - min) * (bucketNum - 1) / d
 		bucketE := bucket[bucketIdx]
 		bucketE = append(bucketE, num)
 		// insertion sort. stable
-		for j := len(bucketE)-1; j > 0 ; j-- {
+		for j := len(bucketE) - 1; j > 0; j-- {
 			if bucketE[j-1] > nums[i] {
 				bucketE[j] = bucketE[j-1]
 			} else {
@@ -262,12 +259,12 @@ func bucketSort(nums []int)  {
 
 }
 
-func bubbleSort(nums []int)  {
+func bubbleSort(nums []int) {
 	var flag bool
 	for i := 0; i < len(nums); i++ {
-		for j := 0; j < len(nums)-i-1; j++{
+		for j := 0; j < len(nums)-i-1; j++ {
 			if nums[j] > nums[j+1] {
-				nums[j],nums[j+1] = nums[j+1], nums[j]
+				nums[j], nums[j+1] = nums[j+1], nums[j]
 				flag = true
 			}
 		}
@@ -275,7 +272,6 @@ func bubbleSort(nums []int)  {
 			break
 		}
 	}
-
 
 }
 
@@ -287,14 +283,13 @@ func main() {
 	//quickSort(data, 0, len(data)-1)
 	//fmt.Println(data)
 
-	data := []int{12,13,24,12,25,16,17,19,1}
+	data := []int{12, 13, 24, 12, 25, 16, 17, 19, 1}
 
 	quickSort(data, 0, len(data)-1)
 	fmt.Println(data)
 
-
-	kth := findKthLargest([]int{3,2,3,1,2,4,5,6}, 3)
+	kth := findKthLargest([]int{3, 2, 3, 1, 2, 4, 5, 6}, 3)
 
 	fmt.Println(kth)
-}
 
+}

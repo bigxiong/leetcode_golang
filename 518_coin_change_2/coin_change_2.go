@@ -8,11 +8,12 @@ func change(amount int, coins []int) int {
 	for i := 0; i < len(dp); i++ {
 		dp[i] = make([]int, amount+1)
 	}
-	//
+	// 第一列， amount为0, 无为而治, 不用凑
 	for i := 0; i < len(dp); i++ {
 		dp[i][0] = 1
 	}
-	for j := 1 ; j < len(dp[0]); j++{
+	// 第一行, 硬币个数为0， 无法凑出amount
+	for j := 1; j < len(dp[0]); j++ {
 		dp[0][j] = 0
 	}
 
@@ -20,7 +21,7 @@ func change(amount int, coins []int) int {
 		// 表示amount
 		for j := 1; j <= amount; j++ {
 			var useCoinI int = 0
-			if j - coins[i-1] >= 0 {
+			if j-coins[i-1] >= 0 {
 				useCoinI = dp[i][j-coins[i-1]]
 			}
 
@@ -31,6 +32,6 @@ func change(amount int, coins []int) int {
 	return dp[len(coins)][amount]
 }
 
-func main()  {
-	change(5, []int{1,2,5})
+func main() {
+	change(5, []int{1, 2, 5})
 }

@@ -22,10 +22,10 @@ func dp1(coins []int, amount int) int {
 	var res int = math.MaxInt32
 	for _, coin := range coins {
 		subProblem := dp1(coins, amount-coin)
-		if subProblem == - 1 {
+		if subProblem == -1 {
 			continue
 		}
-		res = min(res, 1 + subProblem)
+		res = min(res, 1+subProblem)
 	}
 	if res == math.MaxInt32 {
 		return -1
@@ -34,6 +34,7 @@ func dp1(coins []int, amount int) int {
 }
 
 var memo []int
+
 func dp2(coins []int, amount int) int {
 	if amount == 0 {
 		return 0
@@ -47,10 +48,10 @@ func dp2(coins []int, amount int) int {
 	var res int = math.MaxInt32
 	for _, coin := range coins {
 		subProblem := dp2(coins, amount-coin)
-		if subProblem == - 1 {
+		if subProblem == -1 {
 			continue
 		}
-		res = min(res, 1 + subProblem)
+		res = min(res, 1+subProblem)
 	}
 	if res == math.MaxInt32 {
 		memo[amount] = -1
@@ -62,20 +63,20 @@ func dp2(coins []int, amount int) int {
 
 func dp3(coins []int, amount int) int {
 	dpTable := make([]int, amount+1)
-	for i := 0; i < len(dpTable); i++{
+	for i := 0; i < len(dpTable); i++ {
 		dpTable[i] = amount + 1
 	}
 	dpTable[0] = 0
-	for i := 0; i < len(dpTable); i++{
+	for i := 1; i < len(dpTable); i++ {
 		for _, coin := range coins {
-			if i - coin < 0 {
+			if i-coin < 0 {
 				continue
 			}
 			dpTable[i] = min(dpTable[i], 1+dpTable[i-coin])
 		}
 	}
-	if dpTable[amount] == amount + 1 {
-		return 0
+	if dpTable[amount] == amount+1 {
+		return -1
 	} else {
 		return dpTable[amount]
 	}
@@ -91,7 +92,7 @@ func min(x, y int) int {
 
 // 打印有多少种凑硬币方法
 // 使用coins中硬币（子集中有多少种组合可以凑出amount）
-func dp4(coins []int, amount int, start int, result []int)  {
+func dp4(coins []int, amount int, start int, result []int) {
 	if amount < 0 {
 		return
 	}
@@ -108,5 +109,5 @@ func dp4(coins []int, amount int, start int, result []int)  {
 }
 
 func main() {
-	dp4([]int{1,2,5,3}, 5, 0,nil)
+	dp4([]int{1, 2, 5, 3}, 10, 0, nil)
 }

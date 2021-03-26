@@ -23,11 +23,10 @@ type entry struct {
 }
 
 type LRUCache struct {
-	items 	  map[int]*list.Element
+	items     map[int]*list.Element
 	evictList *list.List
 	capacity  int
 }
-
 
 func Constructor(capacity int) LRUCache {
 	cache := LRUCache{
@@ -39,7 +38,7 @@ func Constructor(capacity int) LRUCache {
 }
 
 func (l *LRUCache) Get(key int) int {
-	if item, ok := l.items[key]; ok {
+	if item, exists := l.items[key]; exists {
 		// 活跃的移动到最前
 		l.evictList.MoveToFront(item)
 		return item.Value.(entry).val
@@ -47,8 +46,7 @@ func (l *LRUCache) Get(key int) int {
 	return -1
 }
 
-
-func (l *LRUCache) Put(key int, value int)  {
+func (l *LRUCache) Put(key int, value int) {
 	// update
 	if item, ok := l.items[key]; ok {
 		item.Value = entry{
@@ -71,12 +69,9 @@ func (l *LRUCache) Put(key int, value int)  {
 
 }
 
-
 /**
  * Your LRUCache object will be instantiated and called as such:
  * obj := Constructor(capacity);
  * param_1 := obj.Get(key);
  * obj.Put(key,value);
  */
-
-

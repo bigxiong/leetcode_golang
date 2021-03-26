@@ -1,8 +1,8 @@
 package main
 
 type TreeNode struct {
-	Val int
-	Left *TreeNode
+	Val   int
+	Left  *TreeNode
 	Right *TreeNode
 }
 
@@ -16,7 +16,7 @@ func deleteNode(root *TreeNode, key int) *TreeNode {
 		root.Right = deleteNode(root.Right, key)
 	} else {
 		if root.Left == nil && root.Right == nil {
-			return root.Right
+			return nil
 		}
 		if root.Left != nil && root.Right == nil {
 			return root.Left
@@ -28,8 +28,8 @@ func deleteNode(root *TreeNode, key int) *TreeNode {
 		for p.Left != nil {
 			p = p.Left
 		}
-        root.Val = p.Val
-        root.Right = deleteNode(root.Right, p.Val)
+		root.Val = p.Val
+		root.Right = deleteNode(root.Right, p.Val)
 	}
 	return root
 }

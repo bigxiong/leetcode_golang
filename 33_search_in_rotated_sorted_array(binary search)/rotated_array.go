@@ -1,4 +1,5 @@
 package main
+
 /*
                                    	 0 1 2 3 4 5 6 7 8
 	[0,1,2,4,5,6,7,8] might become  [4,5,6,7,8,0,1,2,3])
@@ -9,13 +10,13 @@ func findMin(nums []int) int {
 		return nums[0]
 	}
 	left := 0
-	right := len(nums)-1
+	right := len(nums) - 1
 	for left < right {
 		mid := (left + right) / 2
 		if mid > 0 && mid < len(nums)-1 && nums[mid-1] < nums[mid] && nums[mid] < nums[mid+1] {
 			return nums[mid]
 		}
-		if nums[left] <= nums[mid] && nums[mid] > nums [right]{
+		if nums[left] <= nums[mid] && nums[mid] > nums[right] {
 			left = mid + 1
 		} else {
 			right = mid - 1
@@ -32,11 +33,11 @@ func findMin2(nums []int) int {
 		return nums[left]
 	}
 	for left <= right {
-		mid := left + (right - left)/2
+		mid := left + (right-left)/2
 		if nums[mid] > nums[mid+1] {
 			return nums[mid+1]
 		}
-		if nums[mid] < nums[mid-1]   {
+		if nums[mid] < nums[mid-1] {
 			return nums[mid]
 		}
 
@@ -58,7 +59,7 @@ func search(nums []int, target int) bool {
 	end := len(nums) - 1
 	var mid int
 	for start <= end {
-		mid = start + (end - start) / 2
+		mid = start + (end-start)/2
 		if nums[mid] == target {
 			return true
 		}
@@ -70,15 +71,15 @@ func search(nums []int, target int) bool {
 			//target在前半部分
 			if nums[start] <= target && target < nums[mid] {
 				end = mid - 1
-			} else {  //否则，去后半部分找
+			} else { //否则，去后半部分找
 				start = mid + 1
 			}
 		} else {
 			//后半部分有序
 			//target在后半部分
-			if nums[mid] < target && target <= nums[end]  {
+			if nums[mid] < target && target <= nums[end] {
 				start = mid + 1
-			} else {  //否则，去后半部分找
+			} else { //否则，去后半部分找
 				end = mid - 1
 			}
 		}
@@ -88,9 +89,9 @@ func search(nums []int, target int) bool {
 
 func search2(nums []int, target int) int {
 	left := 0
-	right := len(nums)-1
+	right := len(nums) - 1
 	for left <= right {
-		mid := left + (right - left)/2
+		mid := left + (right-left)/2
 		if nums[mid] == target {
 			return mid
 		} else {
@@ -114,9 +115,8 @@ func search2(nums []int, target int) int {
 	return -1
 }
 
-
-func main()  {
-	a := []int{2,3,4,5,1}
+func main() {
+	a := []int{2, 3, 4, 5, 1}
 	//findMin(a)
 	//search2(a, 0)
 	findMin2(a)

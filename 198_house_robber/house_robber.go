@@ -49,6 +49,10 @@ func rob1(nums []int) int {
 
 // 动态规划（动态递归）
 func rob2(nums []int) int {
+	if len(nums) == 1 {
+		return nums[0]
+	}
+
 	dp := make([]int, len(nums))
 	dp[0] = nums[0]
 	dp[1] = max(nums[0], nums[1])
@@ -57,7 +61,6 @@ func rob2(nums []int) int {
 	}
 	return dp[len(nums)-1]
 }
-
 
 func max(x, y int) int {
 	if x > y {
@@ -68,9 +71,9 @@ func max(x, y int) int {
 }
 
 func main() {
-	nums := []int{1,2,3,1}
+	nums := []int{1, 2, 3, 1}
 	fmt.Println(rob(nums))
 
-	nums = []int{2,7,9,3,1}
+	nums = []int{2, 7, 9, 3, 1}
 	fmt.Println(rob(nums))
 }
