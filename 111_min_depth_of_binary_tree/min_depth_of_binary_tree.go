@@ -3,8 +3,8 @@ package main
 import "math"
 
 type TreeNode struct {
-	Val int
-	Left *TreeNode
+	Val   int
+	Left  *TreeNode
 	Right *TreeNode
 }
 
@@ -14,7 +14,7 @@ func minDepth(root *TreeNode) int {
 		return 0
 	}
 	if root.Left == nil && root.Right == nil {
-		return  1
+		return 1
 	}
 	var min = math.MaxInt32
 	if root.Left != nil {
@@ -34,9 +34,9 @@ func minDepth(root *TreeNode) int {
 }
 
 // BFS
-func minDepth2(root *TreeNode) int  {
+func minDepth2(root *TreeNode) int {
 	if root == nil {
-		return  0
+		return 0
 	}
 	var queue []*TreeNode
 	queue = append(queue, root)
@@ -57,12 +57,33 @@ func minDepth2(root *TreeNode) int  {
 				queue = append(queue, node.Right)
 			}
 		}
-	    depth++
+		depth++
 	}
 	return depth
 }
 
+func minDepth3(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	minDepth := math.MaxInt32
+	left := minDepth3(root.Left)
+	minDepth = min(minDepth, left)
+
+	right := minDepth3(root.Right)
+	minDepth = min(minDepth, right)
+
+	return minDepth + 1
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	} else {
+		return y
+	}
+}
 
 func main() {
-	
+
 }

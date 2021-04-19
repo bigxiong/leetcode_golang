@@ -1,11 +1,11 @@
 package main
 
 func isValid(s string) bool {
-	if len(s) % 2 != 0 {
+	if len(s)%2 != 0 {
 		return false
 	}
 	var stack []rune
-	pairs := map[rune]rune {
+	pairs := map[rune]rune{
 		')': '(',
 		']': '[',
 		'}': '{',
@@ -28,5 +28,5 @@ func isValid(s string) bool {
 }
 
 func main() {
-	isValid("(]")
+	isValid("()")
 }

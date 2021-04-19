@@ -4,13 +4,14 @@ import "fmt"
 
 func subsets(nums []int) [][]int {
 	var ans [][]int
-	var backtrack func(nums []int, track []int, k int)
-	backtrack = func(nums []int, track []int, k int) {
+	var backtrack func(nums []int, track []int, start int)
+	backtrack = func(nums []int, track []int, start int) {
 		tmp := make([]int, len(track))
 		copy(tmp, track)
 		ans = append(ans, tmp)
-		ans = append(ans, track)
-		for i := k ; i < len(nums); i++ {
+		// 此处添加条件len(track) == k，可以打印不同的k个数的组合。 leetcode 77
+
+		for i := start; i < len(nums); i++ {
 			track = append(track, nums[i])
 			backtrack(nums, track, i+1)
 			track = track[:len(track)-1]
@@ -22,6 +23,7 @@ func subsets(nums []int) [][]int {
 
 }
 
-func main()  {
-	fmt.Println(subsets([]int{1,2,3}))
+func main() {
+	fmt.Println(subsets([]int{1, 2, 3}))
+	//subsets([]int{1,2,3})
 }

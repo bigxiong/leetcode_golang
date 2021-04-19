@@ -5,7 +5,7 @@ package main
 输出: [1,3,12,0,0]
 */
 
-func moveZeroes1(nums []int)  {
+func moveZeroes1(nums []int) {
 	var helperArray []int
 	var zeroCount int
 	for _, num := range nums {
@@ -16,16 +16,16 @@ func moveZeroes1(nums []int)  {
 		}
 	}
 
-	for i := 0; i < zeroCount; i++{
+	for i := 0; i < zeroCount; i++ {
 		helperArray = append(helperArray, 0)
 	}
 
 	copy(nums, helperArray)
 }
 
-func moveZeroes2(nums []int)  {
+func moveZeroes2(nums []int) {
 	var lastNotZero int
-	for i := 0; i < len(nums); i++{
+	for i := 0; i < len(nums); i++ {
 		if nums[i] != 0 {
 			nums[lastNotZero] = nums[i]
 			lastNotZero++
@@ -36,10 +36,9 @@ func moveZeroes2(nums []int)  {
 	}
 }
 
-
-func moveZeroes3(nums []int)  {
+func moveZeroes3(nums []int) {
 	var lastNotZero int
-	for i := 0; i < len(nums); i++{
+	for i := 0; i < len(nums); i++ {
 		if nums[i] != 0 {
 			nums[lastNotZero], nums[i] = nums[i], nums[lastNotZero]
 			lastNotZero++
@@ -47,14 +46,24 @@ func moveZeroes3(nums []int)  {
 	}
 }
 
+func moveZeroes4(nums []int) {
+	var lastNotZero int = len(nums) - 1
+	for j := len(nums) - 1; j >= 0; j-- {
+		if nums[j] != 0 {
+			nums[lastNotZero], nums[j] = nums[j], nums[lastNotZero]
+			lastNotZero--
+		}
+	}
+}
+
 func main() {
-	nums := []int{0,1,0,3,12}
+	nums := []int{0, 1, 0, 3, 12}
 
 	moveZeroes1(nums)
 
-	nums = []int{0,1,0,3,12}
+	nums = []int{0, 1, 0, 3, 12}
 	moveZeroes2(nums)
 
-	nums = []int{0,1,0,3,12}
-	moveZeroes3(nums)
+	nums = []int{0, 1, 0, 3, 12}
+	moveZeroes4(nums)
 }

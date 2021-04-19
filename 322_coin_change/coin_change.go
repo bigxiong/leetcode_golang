@@ -98,6 +98,7 @@ func dp4(coins []int, amount int, start int, result []int) {
 	}
 	if amount == 0 {
 		fmt.Println(result)
+		return
 	}
 	for i := start; i < len(coins); i++ {
 		coin := coins[i]
@@ -108,6 +109,26 @@ func dp4(coins []int, amount int, start int, result []int) {
 
 }
 
+// 打印有多少种凑硬币方法
+// 使用coins中硬币
+// 硬币数量不限制，可以重复使用相同面额的。 leetcode 39
+func dp5(coins []int, amount int, begin int, result []int) {
+	if amount < 0 {
+		return
+	}
+	if amount == 0 {
+		fmt.Println(result)
+		return
+	}
+	for i := begin; i < len(coins); i++ {
+		coin := coins[i]
+		result = append(result, coin)
+		dp4(coins, amount-coin, i, result)
+		result = result[:len(result)-1]
+	}
+
+}
+
 func main() {
-	dp4([]int{1, 2, 5, 3}, 10, 0, nil)
+	dp5([]int{1, 2, 5, 3}, 10, 0, nil)
 }

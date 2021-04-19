@@ -81,10 +81,10 @@ import "fmt"
 //}
 
 func exist(board [][]byte, word string) bool {
-	row, col := len(board), len(board[0])
-	var visited = make([][]bool, len(board))
+	m, n := len(board), len(board[0])
+	var visited = make([][]bool, m)
 	for i := 0; i < len(board); i++ {
-		visited[i] = make([]bool, len(board[0]))
+		visited[i] = make([]bool, n)
 	}
 	var backtrack func(board [][]byte, x, y int, word string) bool
 
@@ -137,8 +137,8 @@ func exist(board [][]byte, word string) bool {
 		return false
 	}
 
-	for i := 0; i < row; i++ {
-		for j := 0; j < col; j++ {
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
 			if board[i][j] == word[0] {
 				isOk := backtrack(board, i, j, word)
 				if isOk {
@@ -209,10 +209,11 @@ func exist2(board [][]byte, word string) bool {
 		//	}
 		//}
 		for _, direction := range directions {
-			x := x + direction[0]
-			y := y + direction[1]
-			if 0 <= x && x < row && 0 <= y && y < col && !visited[x][y] {
-				isOk := backtrack(board, x, y, word[1:])
+			// 此处使用i,j 不要覆盖x,y
+			i := x + direction[0]
+			j := y + direction[1]
+			if 0 <= i && i < row && 0 <= j && j < col && !visited[i][j] {
+				isOk := backtrack(board, i, j, word[1:])
 				if isOk {
 					return true
 				}
@@ -226,7 +227,7 @@ func exist2(board [][]byte, word string) bool {
 	for i := 0; i < row; i++ {
 		for j := 0; j < col; j++ {
 			if board[i][j] == word[0] {
-				isOk := backtrack(board, i, j, word)
+				isOk := backtrack(board, i, j, word[1:])
 				if isOk {
 					return true
 				}
@@ -247,6 +248,6 @@ func main() {
 		{'A', 'A'},
 	}
 
-	b := exist(board, "AA")
+	b := exist2(board, "AA")
 	fmt.Println(b)
 }
