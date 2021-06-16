@@ -24,6 +24,7 @@ func twoSum2(nums []int, target int) []int {
 			i++
 		}
 	}
+
 	return nil
 }
 
@@ -122,7 +123,6 @@ func threeSum(nums []int) [][]int {
 	}
 	return result
 }
-
 
 func fourSum(nums []int, target int) [][]int {
 	var resultSet map[[4]int]bool

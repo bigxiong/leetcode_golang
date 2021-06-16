@@ -36,7 +36,7 @@ func detectCycle1(head *ListNode) *ListNode {
 	p := head
 	for p != slow {
 		p = p.Next
-		fast = fast.Next
+		slow = slow.Next
 	}
 	return p
 }

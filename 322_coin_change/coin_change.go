@@ -130,5 +130,5 @@ func dp5(coins []int, amount int, begin int, result []int) {
 }
 
 func main() {
-	dp5([]int{1, 2, 5, 3}, 10, 0, nil)
+	fmt.Println(dp3([]int{1,2,5}, 11))
 }
